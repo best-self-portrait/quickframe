@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QUICK FRAME — фотостудия автопортрета в Екатеринбурге</title>
+<meta name="description" content="QUICK FRAME — пространство автопортрета в Екатеринбурге. Ты, зеркало и пульт в руке. Никакого стеснения — только твои настоящие эмоции.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   1. ПЕРЕМЕННЫЕ И БАЗА
+   ============================================================ */
+:root{
+  --sage:      #A8C7B2;
+  --sage-deep: #8FB39B;
+  --sage-soft: #EAF3EE;
+  --sage-line: rgba(168,199,178,.45);
+
+  --pink:      #F4CBD1;
+  --pink-deep: #EBAFB8;
+  --pink-soft: #FBE7EA;
+
+  --bg:        #FCFCFB;
+  --ink:       #2B2F2C;
+  --muted:     #79817B;
+
+  --radius:    28px;
+  --t:         1s cubic-bezier(.22,.61,.36,1);   /* плавные 1-секундные переходы */
+  --shadow:    0 24px 50px -30px rgba(90,110,98,.55);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size:16px;
+  line-height:1.65;
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+h1,h2,h3,h4{ font-family:'Montserrat','Inter',sans-serif; line-height:1.15; letter-spacing:-.02em; }
+img{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button,input,select,textarea{ font:inherit; color:inherit; }
+
+.container{
+  width:100%;
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 24px;
+}
+
+.section{ padding:clamp(64px,8vw,124px) 0; position:relative; }
+
+/* ============================================================
+   2. ТИПОГРАФИКА / ОБЩИЕ ЭЛЕМЕНТЫ
+   ============================================================ */
+.eyebrow{
+  display:inline-block;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#7E9B8A;
+  margin-bottom:16px;
+}
+
+.section-title{
+  font-size:clamp(28px,3.6vw,44px);
+  font-weight:600;
+  margin:0 0 16px;
+  color:var(--ink);
+}
+
+.section-sub{
+  max-width:600px;
+  margin:0 0 48px;
+  color:var(--muted);
+  font-size:clamp(15px,1.2vw,17px);
+}
+
+.section-head{ margin-bottom:clamp(36px,4vw,56px); }
+
+/* --- Кнопки (переход 1 сек) --- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:16px 32px;
+  border:1px solid transparent;
+  border-radius:999px;
+  font-family:'Montserrat',sans-serif;
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:.01em;
+  cursor:pointer;
+  white-space:nowrap;
+  transition: background-color var(--t),
+              color var(--t),
+              border-color var(--t),
+              box-shadow var(--t),
+              transform var(--t);
+}
+
+.btn-accent{
+  background:var(--pink);
+  color:#4B2F34;
+  box-shadow:0 14px 30px -16px rgba(235,175,184,.95);
+}
+.btn-accent:hover{
+  background:var(--pink-deep);
+  color:#3E2529;
+  transform:translateY(-3px);
+  box-shadow:0 22px 40px -18px rgba(235,175,184,1);
+}
+
+.btn-sage{
+  background:var(--sage);
+  color:#1F3A2B;
+  box-shadow:0 14px 30px -18px rgba(143,179,155,.95);
+}
+.btn-sage:hover{
+  background:var(--sage-deep);
+  color:#12291E;
+  transform:translateY(-3px);
+  box-shadow:0 22px 40px -18px rgba(143,179,155,1);
+}
+
+.btn-ghost{
+  background:transparent;
+  border-color:var(--sage-line);
+  color:#3C5A49;
+}
+.btn-ghost:hover{
+  background:var(--sage-soft);
+  border-color:var(--sage);
+  transform:translateY(-3px);
+}
+
+.btn-sm{ padding:11px 22px; font-size:14px; }
+.btn-block{ width:100%; }
+
+/* ============================================================
+   3. ХЕДЕР
+   ============================================================ */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  background:rgba(252,252,251,.78);
+  border-bottom:1px solid transparent;
+  transition:background-color var(--t), border-color var(--t), box-shadow var(--t);
+}
+.site-header.is-scrolled{
+  background:rgba(252,252,251,.94);
+  border-bottom-color:rgba(168,199,178,.3);
+  box-shadow:0 10px 30px -24px rgba(90,110,98,.9);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  min-height:74px;
+}
+.logo{
+  font-family:'Montserrat',sans-serif;
+  font-size:19px;
+  font-weight:700;
+  letter-spacing:.14em;
+  color:var(--ink);
+  transition:color var(--t);
+}
+.logo span{ color:var(--sage-deep); }
+.logo:hover{ color:var(--sage-deep); }
+
+.nav{ display:flex; gap:30px; }
+.nav a{
+  font-size:14.5px;
+  font-weight:500;
+  color:#58625B;
+  position:relative;
+  padding:6px 0;
+  transition:color var(--t);
+}
+.nav a::after{
+  content:'';
+  position:absolute;
+  left:0; bottom:0;
+  width:0; height:1.5px;
+  background:var(--sage-deep);
+  border-radius:2px;
+  transition:width var(--t);
+}
+.nav a:hover{ color:var(--ink); }
+.nav a:hover::after{ width:100%; }
+
+/* ============================================================
+   4. HERO
+   ============================================================ */
+.hero{
+  padding:clamp(48px,6vw,92px) 0 clamp(64px,8vw,120px);
+  background:linear-gradient(180deg,#FCFDFC 0%,#F5FAF7 55%,#F2F8F4 100%);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:clamp(32px,5vw,72px);
+  align-items:center;
+}
+
+.hero h1{
+  font-size:clamp(30px,4.4vw,56px);
+  font-weight:600;
+  margin:0 0 24px;
+  letter-spacing:-.03em;
+}
+.hero h1 em{
+  font-style:normal;
+  color:var(--sage-deep);
+  position:relative;
+  white-space:nowrap;
+}
+
+.hero-sub{
+  font-size:clamp(15px,1.3vw,17.5px);
+  color:#5E6862;
+  max-width:520px;
+  margin:0 0 36px;
+}
+
+.hero-actions{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; }
+
+.hero-note{
+  margin-top:34px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 16px;
+  border-radius:999px;
+  background:rgba(255,255,255,.75);
+  border:1px solid var(--sage-line);
+  font-size:13px;
+  color:#4E6659;
+  transition:background-color var(--t), border-color var(--t), transform var(--t);
+}
+.chip:hover{ background:#fff; border-color:var(--sage); transform:translateY(-2px); }
+
+/* --- Визуал --- */
+.hero-visual{ position:relative; }
+
+.hero-photo{
+  position:relative;
+  border-radius:34px;
+  overflow:hidden;
+  aspect-ratio:4/5;
+  background:linear-gradient(140deg,var(--sage-soft),var(--pink-soft));
+  box-shadow:var(--shadow);
+  z-index:2;
+}
+.hero-photo img{
+  width:100%; height:100%;
+  object-fit:cover;
+  transition:transform var(--t), filter var(--t);
+}
+.hero-photo:hover img{ transform:scale(1.05); }
+
+.hero-photo::after{
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(180deg,rgba(43,47,44,0) 55%,rgba(43,47,44,.28) 100%);
+  pointer-events:none;
+}
+
+.blob{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(46px);
+  opacity:.75;
+  z-index:1;
+  pointer-events:none;
+}
+.blob-1{ width:260px; height:260px; background:var(--pink); top:-56px; right:-40px; }
+.blob-2{ width:300px; height:300px; background:var(--sage); bottom:-70px; left:-60px; }
+
+.hero-badge{
+  position:absolute;
+  z-index:3;
+  left:-16px;
+  bottom:36px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 20px;
+  border-radius:20px;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);
+  box-shadow:0 20px 40px -24px rgba(90,110,98,.8);
+  font-size:13.5px;
+  font-weight:500;
+  color:#3E5749;
+  transition:transform var(--t), box-shadow var(--t);
+}
+.hero-badge:hover{ transform:translateY(-4px); box-shadow:0 28px 48px -24px rgba(90,110,98,.9); }
+.hero-badge .dot{
+  width:9px; height:9px; border-radius:50%;
+  background:var(--sage-deep);
+  box-shadow:0 0 0 4px rgba(168,199,178,.3);
+}
+
+/* ============================================================
+   5. КАК ЭТО РАБОТАЕТ
+   ============================================================ */
+.how{
+  background:linear-gradient(180deg,#F2F8F4 0%,#F7FAF8 40%,#FDF6F7 100%);
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.step-card{
+  position:relative;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(168,199,178,.35);
+  border-radius:var(--radius);
+  padding:32px 26px 30px;
+  transition:transform var(--t), box-shadow var(--t), border-color var(--t), background-color var(--t);
+}
+.step-card:hover{
+  transform:translateY(-8px);
+  background:#fff;
+  border-color:var(--sage);
+  box-shadow:var(--shadow);
+}
+
+.step-num{
+  width:46px; height:46px;
+  border-radius:16px;
+  display:grid; place-items:center;
+  font-family:'Montserrat',sans-serif;
+  font-weight:700;
+  font-size:16px;
+  margin-bottom:22px;
+  transition:transform var(--t);
+}
+.step-card:nth-child(odd)  .step-num{ background:var(--sage-soft); color:#3C5A49; }
+.step-card:nth-child(even) .step-num{ background:var(--pink-soft); color:#8A5159; }
+.step-card:hover .step-num{ transform:rotate(-6deg) scale(1.06); }
+
+.step-card h3{
+  font-size:17px;
+  font-weight:600;
+  margin:0 0 10px;
+}
+.step-card p{
+  margin:0;
+  font-size:14.5px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* ============================================================
+   6. ЗОНЫ И ЗАЛЫ
+   ============================================================ */
+.zones{
+  background:linear-gradient(180deg,#FDF6F7 0%,#FAF8F8 45%,#F4F9F6 100%);
+}
+
+.zones-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+.zone-card{
+  background:#fff;
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid rgba(168,199,178,.35);
+  transition:transform var(--t), box-shadow var(--t), border-color var(--t);
+}
+.zone-card:hover{
+  transform:translateY(-8px);
+  box-shadow:var(--shadow);
+  border-color:var(--sage);
+}
+
+.zone-photo{
+  aspect-ratio:4/5;
+  position:relative;
+  overflow:hidden;
+  transition:transform var(--t);
+}
+.zone-photo::after{
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,0) 60%,rgba(255,255,255,.14) 100%);
+}
+.zone-card:hover .zone-photo{ transform:scale(1.02); }
+
+.zone-black { background:linear-gradient(150deg,#2F2F2F 0%,#4B4B4B 100%); }
+.zone-white { background:linear-gradient(150deg,#F8F8F6 0%,#E6E7E3 100%); }
+.zone-pastel{ background:linear-gradient(150deg,var(--sage) 0%,var(--pink) 100%); }
+
+.zone-body{ padding:24px 24px 26px; }
+.zone-body h3{
+  font-size:18px;
+  font-weight:600;
+  margin:0 0 8px;
+}
+.zone-body p{
+  margin:0 0 20px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* ============================================================
+   7. ЦЕНЫ
+   ============================================================ */
+.prices{
+  background:linear-gradient(180deg,#F4F9F6 0%,#FAF9F8 45%,#FDF5F6 100%);
+}
+
+.price-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  align-items:stretch;
+}
+
+.price-card{
+  display:flex;
+  flex-direction:column;
+  background:rgba(255,255,255,.86);
+  border:1px solid rgba(168,199,178,.4);
+  border-radius:var(--radius);
+  padding:34px 30px;
+  transition:transform var(--t), box-shadow var(--t), border-color var(--t), background-color var(--t);
+}
+.price-card:hover{
+  transform:translateY(-8px);
+  background:#fff;
+  border-color:var(--sage);
+  box-shadow:var(--shadow);
+}
+
+.price-card.featured{
+  background:linear-gradient(175deg,#FFF7F8 0%,#F3FAF5 100%);
+  border-color:var(--pink);
+  position:relative;
+}
+.price-card.featured::before{
+  content:'Хит';
+  position:absolute;
+  top:-13px; left:30px;
+  padding:5px 14px;
+  border-radius:999px;
+  background:var(--pink);
+  color:#4B2F34;
+  font-family:'Montserrat',sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.price-name{
+  font-family:'Montserrat',sans-serif;
+  font-size:20px;
+  font-weight:600;
+  margin:0 0 6px;
+}
+.price-time{
+  font-size:13.5px;
+  color:var(--muted);
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  margin:0 0 22px;
+}
+.price-value{
+  font-family:'Montserrat',sans-serif;
+  font-size:38px;
+  font-weight:700;
+  letter-spacing:-.03em;
+  color:#2F4A3B;
+  margin:0 0 26px;
+  line-height:1;
+}
+.price-value small{
+  font-size:15px;
+  font-weight:500;
+  color:var(--muted);
+  letter-spacing:0;
+}
+
+.price-list{
+  list-style:none;
+  margin:0 0 30px;
+  padding:0;
+  display:grid;
+  gap:12px;
+  flex:1;
+}
+.price-list li{
+  position:relative;
+  padding-left:28px;
+  font-size:14.5px;
+  color:#4E5A53;
+  line-height:1.5;
+}
+.price-list li::before{
+  content:'';
+  position:absolute;
+  left:0; top:7px;
+  width:14px; height:14px;
+  border-radius:50%;
+  background:var(--sage-soft);
+  box-shadow:inset 0 0 0 3px var(--sage);
+  transition:box-shadow var(--t);
+}
+.price-card:hover .price-list li::before{
+  box-shadow:inset 0 0 0 4px var(--sage-deep);
+}
+
+/* ============================================================
+   8. ГАЛЕРЕЯ + ЭФФЕКТ РАЗЪЕЗЖАЮЩИХСЯ ФОТО
+   ============================================================ */
+.gallery{
+  background:linear-gradient(180deg,#FDF5F6 0%,#FBF8F8 40%,#FBFCFB 100%);
+}
+
+/* --- Спец-блок: две фотографии + смайлик --- */
+.reveal{
+  position:relative;
+  max-width:840px;
+  margin:0 auto clamp(56px,7vw,96px);
+  outline:none;
+}
+
+.reveal-stage{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(14px,2.4vw,34px);
+}
+
+.rv{
+  margin:0;
+  flex:0 1 300px;
+  aspect-ratio:3/4;
+  border-radius:26px;
+  overflow:hidden;
+  background:linear-gradient(150deg,var(--pink-soft),var(--sage-soft));
+  box-shadow:0 26px 54px -34px rgba(90,110,98,.85);
+  transition:transform var(--t), box-shadow var(--t);
+  will-change:transform;
+}
+
+.rv img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform var(--t), filter var(--t);
+  will-change:transform;
+}
+
+/* иконка между фотографиями */
+.rv-icon{
+  font-size:22px;
+  line-height:1;
+  color:var(--sage-deep);
+  user-select:none;
+  transition:opacity .7s ease, transform var(--t);
+}
+
+/* --- Подпись, спрятанная под фотографиями --- */
+.reveal-caption{
+  text-align:center;
+  margin-top:28px;
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity var(--t), transform var(--t);
+  pointer-events:none;
+}
+.reveal-smile{
+  font-size:30px;
+  line-height:1;
+  display:block;
+  margin-bottom:10px;
+}
+.reveal-caption p{
+  margin:0;
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(16px,2vw,21px);
+  font-weight:500;
+  letter-spacing:-.01em;
+  color:#4A5C51;
+}
+
+/* --- Само разъезжание --- */
+.reveal:hover .rv-left,
+.reveal:focus-within .rv-left{ transform:translateX(-40px); }
+
+.reveal:hover .rv-right,
+.reveal:focus-within .rv-right{ transform:translateX(40px); }
+
+/* компенсация смещения: содержимое фото тянется к своему центру */
+.reveal:hover .rv-left img,
+.reveal:focus-within .rv-left img{ transform:translateX(21px) scale(1.09); }
+
+.reveal:hover .rv-right img,
+.reveal:focus-within .rv-right img{ transform:translateX(-21px) scale(1.09); }
+
+.reveal:hover .rv-icon,
+.reveal:focus-within .rv-icon{ opacity:0; transform:scale(.55) rotate(20deg); }
+
+.reveal:hover .reveal-caption,
+.reveal:focus-within .reveal-caption{ opacity:1; transform:translateY(0); }
+
+/* на тач-устройствах подпись видна всегда */
+@media (hover:none){
+  .reveal-caption{ opacity:1; transform:none; }
+  .rv-icon{ display:none; }
+}
+
+/* --- Сетка работ --- */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.g-item{
+  position:relative;
+  overflow:hidden;
+  border-radius:22px;
+  aspect-ratio:3/4;
+  background:linear-gradient(150deg,var(--sage-soft),var(--pink-soft));
+  transition:transform var(--t), box-shadow var(--t);
+}
+.g-item:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow);
+}
+
+.g-item img{
+  width:100%; height:100%;
+  object-fit:cover;
+  transition:filter var(--t), transform var(--t);
+}
+.g-item:hover img{
+  filter:blur(7px) brightness(.82) saturate(1.05);
+  transform:scale(1.07);
+}
+
+.g-caption{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  text-align:center;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity var(--t), transform var(--t);
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(15px,1.5vw,19px);
+  font-weight:600;
+  color:#fff;
+  letter-spacing:.01em;
+  text-shadow:0 2px 18px rgba(0,0,0,.45);
+  pointer-events:none;
+}
+.g-item:hover .g-caption{ opacity:1; transform:translateY(0); }
+
+/* ============================================================
+   9. КОНТАКТЫ И ЗАПИСЬ
+   ============================================================ */
+.contacts{
+  background:linear-gradient(180deg,#FBFCFB 0%,#F3F9F5 55%,#EAF3EE 100%);
+}
+
+.contacts-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:clamp(28px,4vw,56px);
+  align-items:start;
+}
+
+/* --- Форма --- */
+.booking-form{
+  background:#fff;
+  border:1px solid rgba(168,199,178,.4);
+  border-radius:var(--radius);
+  padding:clamp(26px,3vw,40px);
+  box-shadow:var(--shadow);
+}
+
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.field{ margin-bottom:18px; }
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:500;
+  color:#5A655E;
+  margin-bottom:8px;
+  letter-spacing:.02em;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  padding:14px 16px;
+  border-radius:14px;
+  border:1px solid rgba(168,199,178,.55);
+  background:#FCFDFC;
+  font-size:15px;
+  outline:none;
+  transition:border-color var(--t), background-color var(--t), box-shadow var(--t);
+  appearance:none;
+}
+.field select{
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238FB39B' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 16px center;
+  padding-right:42px;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:var(--sage-deep);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(168,199,178,.22);
+}
+
+.field textarea{ resize:vertical; min-height:90px; }
+
+.form-note{
+  font-size:12.5px;
+  color:var(--muted);
+  margin:16px 0 0;
+  line-height:1.5;
+}
+
+.form-success{
+  display:none;
+  margin-top:18px;
+  padding:16px 20px;
+  border-radius:16px;
+  background:var(--sage-soft);
+  border:1px solid var(--sage);
+  font-size:14.5px;
+  color:#31513F;
+}
+.form-success.is-visible{ display:block; }
+
+/* --- Инфо --- */
+.info-card{
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(168,199,178,.4);
+  border-radius:var(--radius);
+  padding:clamp(26px,3vw,38px);
+  transition:background-color var(--t), box-shadow var(--t);
+}
+.info-card:hover{ background:#fff; box-shadow:var(--shadow); }
+
+.info-list{
+  list-style:none;
+  margin:0 0 28px;
+  padding:0;
+  display:grid;
+  gap:18px;
+}
+.info-list li{
+  display:grid;
+  gap:4px;
+  font-size:15px;
+}
+.info-list .label{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#8FA597;
+}
+.info-list a{
+  color:#2F4A3B;
+  border-bottom:1px solid transparent;
+  transition:border-color var(--t), color var(--t);
+  width:fit-content;
+}
+.info-list a:hover{ border-bottom-color:var(--sage-deep); color:#1F3A2B; }
+
+.socials{ display:flex; gap:12px; flex-wrap:wrap; }
+
+.social-link{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:11px 20px;
+  border-radius:999px;
+  background:var(--sage-soft);
+  border:1px solid var(--sage-line);
+  font-size:14px;
+  font-weight:500;
+  color:#33523F;
+  transition:background-color var(--t), border-color var(--t), transform var(--t), box-shadow var(--t);
+}
+.social-link:hover{
+  background:#fff;
+  border-color:var(--sage-deep);
+  transform:translateY(-3px);
+  box-shadow:0 16px 30px -22px rgba(90,110,98,.9);
+}
+.social-link svg{ width:17px; height:17px; }
+
+/* --- Карта --- */
+.map-wrap{
+  margin-top:clamp(32px,4vw,52px);
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid rgba(168,199,178,.45);
+  box-shadow:var(--shadow);
+  line-height:0;
+  transition:transform var(--t), box-shadow var(--t);
+}
+.map-wrap:hover{ transform:translateY(-4px); }
+.map-wrap iframe{
+  width:100%;
+  height:380px;
+  border:0;
+  filter:grayscale(.35) contrast(.95) saturate(1.05);
+  transition:filter var(--t);
+}
+.map-wrap:hover iframe{ filter:grayscale(0) contrast(1) saturate(1.1); }
+
+/* ============================================================
+   10. ФУТЕР
+   ============================================================ */
+.site-footer{
+  background:#EAF3EE;
+  padding:44px 0 40px;
+  border-top:1px solid rgba(168,199,178,.4);
+}
+.footer-inner{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  font-size:13.5px;
+  color:#68766D;
+}
+.footer-links{ display:flex; gap:22px; flex-wrap:wrap; }
+.footer-links a{ transition:color var(--t); }
+.footer-links a:hover{ color:#2F4A3B; }
+
+/* ============================================================
+   11. АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ
+   ============================================================ */
+.will-animate{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity 1s cubic-bezier(.22,.61,.36,1),
+             transform 1s cubic-bezier(.22,.61,.36,1);
+}
+.will-animate.is-in{
+  opacity:1;
+  transform:none;
+}
+
+/* ============================================================
+   12. АДАПТИВ
+   ============================================================ */
+@media (max-width:1024px){
+  .steps{ grid-template-columns:repeat(2,1fr); }
+  .hero-grid{ grid-template-columns:1fr; }
+  .hero-visual{ max-width:460px; margin:0 auto; width:100%; }
+  .hero-badge{ left:0; }
+}
+
+@media (max-width:900px){
+  .nav{ display:none; }
+  .zones-grid{ grid-template-columns:1fr; max-width:440px; margin:0 auto; }
+  .price-grid{ grid-template-columns:1fr; max-width:460px; margin:0 auto; }
+  .gallery-grid{ grid-template-columns:repeat(2,1fr); }
+  .contacts-grid{ grid-template-columns:1fr; }
+}
+
+@media (max-width:620px){
+  .steps{ grid-template-columns:1fr; }
+  .gallery-grid{ grid-template-columns:1fr; }
+  .form-row{ grid-template-columns:1fr; }
+  .rv{ flex:0 1 46%; border-radius:20px; }
+  .reveal:hover .rv-left,
+  .reveal:focus-within .rv-left{ transform:translateX(-16px); }
+  .reveal:hover .rv-right,
+  .reveal:focus-within .rv-right{ transform:translateX(16px); }
+  .reveal:hover .rv-left img,
+  .reveal:focus-within .rv-left img{ transform:translateX(8px) scale(1.07); }
+  .reveal:hover .rv-right img,
+  .reveal:focus-within .rv-right img{ transform:translateX(-8px) scale(1.07); }
+  .hero-badge{ left:auto; right:12px; bottom:12px; font-size:12.5px; padding:11px 15px; }
+  .map-wrap iframe{ height:300px; }
+  .footer-inner{ justify-content:center; text-align:center; }
+}
+
+/* Уважение к настройкам пользователя */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .will-animate{ opacity:1; transform:none; }
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- ================= ХЕДЕР ================= -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="#top" class="logo">QUICK<span>FRAME</span></a>
+
+    <nav class="nav">
+      <a href="#how">Как это работает</a>
+      <a href="#zones">Залы</a>
+      <a href="#prices">Цены</a>
+      <a href="#gallery">Галерея</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+
+    <a href="#contacts" class="btn btn-accent btn-sm">Забронировать</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container hero-grid">
+
+    <div class="hero-text will-animate">
+      <span class="eyebrow">Фотостудия автопортрета · Екатеринбург</span>
+
+      <h1>Моя самая любимая фотка? Та что сделал в <em>QUICK FRAME</em></h1>
+
+      <p class="hero-sub">
+        Пространство автопортрета в Екатеринбурге. Ты, зеркало и пульт в руке.
+        Никакого стеснения — только твои настоящие эмоции.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#contacts" class="btn btn-accent">Забронировать слот</a>
+        <a href="#how" class="btn btn-ghost">Как это работает</a>
+      </div>
+
+      <div class="hero-note">
+        <span class="chip">🔒 Полная приватность</span>
+        <span class="chip">📸 Без фотографа</span>
+        <span class="chip">⏱ Обработка за 24 часа</span>
+      </div>
+    </div>
+
+    <div class="hero-visual will-animate">
+      <span class="blob blob-1"></span>
+      <span class="blob blob-2"></span>
+
+      <div class="hero-photo">
+        <!-- ЗАМЕНИТЕ src на атмосферное фото из студии -->
+        <img src="https://picsum.photos/seed/quickframe-hero/900/1125"
+             alt="Атмосферное фото из студии QUICK FRAME" loading="eager">
+      </div>
+
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Зеркало · Пульт · Свобода
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= КАК ЭТО РАБОТАЕТ ================= -->
+<section class="section how" id="how">
+  <div class="container">
+
+    <div class="section-head will-animate">
+      <span class="eyebrow">Инструкция</span>
+      <h2 class="section-title">Как это работает</h2>
+      <p class="section-sub">Четыре простых шага — и у тебя на руках фотографии, которые не стыдно поставить на аватарку.</p>
+    </div>
+
+    <div class="steps">
+      <article class="step-card will-animate">
+        <div class="step-num">01</div>
+        <h3>Забронируй время</h3>
+        <p>Выбери удобный слот на сайте — за пару минут, без звонков и переписок.</p>
+      </article>
+
+      <article class="step-card will-animate">
+        <div class="step-num">02</div>
+        <h3>Приходи и настраивай</h3>
+        <p>Выбирай фон и музыку под настроение. Всё уже готово и ждёт тебя.</p>
+      </article>
+
+      <article class="step-card will-animate">
+        <div class="step-num">03</div>
+        <h3>Снимай сам</h3>
+        <p>Настраивайся перед зеркалом и делай снимки нажатием на пульт в руке.</p>
+      </article>
+
+      <article class="step-card will-animate">
+        <div class="step-num">04</div>
+        <h3>Получи фото</h3>
+        <p>Все оригиналы и обработанные кадры придут на почту в течение 24 часов.</p>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ЗОНЫ И ЗАЛЫ ================= -->
+<section class="section zones" id="zones">
+  <div class="container">
+
+    <div class="section-head will-animate">
+      <span class="eyebrow">Наши зоны и залы</span>
+      <h2 class="section-title">Выбери свой фон</h2>
+      <p class="section-sub">Три разных настроения в одной студии. Меняй залы внутри одной съёмки — без доплат.</p>
+    </div>
+
+    <div class="zones-grid">
+
+      <article class="zone-card will-animate">
+        <div class="zone-photo zone-black"></div>
+        <div class="zone-body">
+          <h3>Классический чёрный</h3>
+          <p>Глубокий графитовый фон и мягкий контровой свет. Идеален для портретов и смелых образов.</p>
+          <button class="btn btn-ghost btn-sm zone-btn" data-zone="Классический чёрный">Выбрать этот зал</button>
+        </div>
+      </article>
+
+      <article class="zone-card will-animate">
+        <div class="zone-photo zone-white"></div>
+        <div class="zone-body">
+          <h3>Минималистичный белый</h3>
+          <p>Воздух, свет и ничего лишнего. Тот самый чистый кадр, который всегда выглядит дорого.</p>
+          <button class="btn btn-ghost btn-sm zone-btn" data-zone="Минималистичный белый">Выбрать этот зал</button>
+        </div>
+      </article>
+
+      <article class="zone-card will-animate">
+        <div class="zone-photo zone-pastel"></div>
+        <div class="zone-body">
+          <h3>Цветной пастельный</h3>
+          <p>Шалфейный и пудрово-розовый — нежная гамма, в которой получаются самые тёплые кадры.</p>
+          <button class="btn btn-ghost btn-sm zone-btn" data-zone="Цветной пастельный">Выбрать этот зал</button>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ЦЕНЫ ================= -->
+<section class="section prices" id="prices">
+  <div class="container">
+
+    <div class="section-head will-animate">
+      <span class="eyebrow">Цены и пакеты</span>
+      <h2 class="section-title">Прозрачные тарифы</h2>
+      <p class="section-sub">В каждой съёмке — неограниченное количество кадров, все оригиналы и обработанные фото.</p>
+    </div>
+
+    <div class="price-grid">
+
+      <article class="price-card will-animate">
+        <h3 class="price-name">Знакомство</h3>
+        <p class="price-time">45 минут</p>
+        <p class="price-value">2 900 <small>₽</small></p>
+        <ul class="price-list">
+          <li>1 человек</li>
+          <li>2 фона на выбор</li>
+          <li>Своя музыка</li>
+          <li>Все оригиналы</li>
+          <li>10 обработанных фото</li>
+          <li>Ссылка на все фото</li>
+        </ul>
+        <a href="#contacts" class="btn btn-ghost btn-block">Забронировать</a>
+      </article>
+
+      <article class="price-card featured will-animate">
+        <h3 class="price-name">Стандарт</h3>
+        <p class="price-time">1 час</p>
+        <p class="price-value">3 900 <small>₽</small></p>
+        <ul class="price-list">
+          <li>До 2 человек</li>
+          <li>Все фоны студии</li>
+          <li>Свой плейлист</li>
+          <li>Все оригиналы</li>
+          <li>20 обработанных фото</li>
+          <li>Ссылка на все фото</li>
+        </ul>
+        <a href="#contacts" class="btn btn-accent btn-block">Забронировать</a>
+      </article>
+
+      <article class="price-card will-animate">
+        <h3 class="price-name">Для двоих</h3>
+        <p class="price-time">1,5 часа</p>
+        <p class="price-value">5 400 <small>₽</small></p>
+        <ul class="price-list">
+          <li>2 человека</li>
+          <li>Все фоны студии</li>
+          <li>Свой плейлист</li>
+          <li>Все оригиналы</li>
+          <li>30 обработанных фото</li>
+          <li>Ссылка на все фото</li>
+        </ul>
+        <a href="#contacts" class="btn btn-ghost btn-block">Забронировать</a>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ГАЛЕРЕЯ ================= -->
+<section class="section gallery" id="gallery">
+  <div class="container">
+
+    <div class="section-head will-animate">
+      <span class="eyebrow">Галерея работ</span>
+      <h2 class="section-title">Живые кадры наших гостей</h2>
+      <p class="section-sub">Никаких постановочных улыбок — только настоящие эмоции, свет и атмосфера студии.</p>
+    </div>
+
+    <!-- ===== Блок с разъезжающимися фото ===== -->
+    <!-- ЗАМЕНИТЕ ссылки на свои фотографии -->
+    <div class="reveal will-animate" tabindex="0" aria-label="Наведи, чтобы увидеть подпись">
+      <div class="reveal-stage">
+
+        <figure class="rv rv-left">
+          <img src="https://picsum.photos/seed/quickframe-n1/700/930" alt="Автопортрет в студии — кадр 1" loading="lazy">
+        </figure>
+
+        <span class="rv-icon" aria-hidden="true">✳</span>
+
+        <figure class="rv rv-right">
+          <img src="https://picsum.photos/seed/quickframe-n2/700/930" alt="Автопортрет в студии — кадр 2" loading="lazy">
+        </figure>
+
+      </div>
+
+      <div class="reveal-caption">
+        <span class="reveal-smile" aria-hidden="true">😉</span>
+        <p>никакого стеснения, только ты и ты</p>
+      </div>
+    </div>
+
+    <!-- ===== Сетка работ ===== -->
+    <div class="gallery-grid">
+
+      <figure class="g-item will-animate">
+        <img src="https://picsum.photos/seed/quickframe-g1/700/930" alt="Работа из галереи QUICK FRAME" loading="lazy">
+        <figcaption class="g-caption">Очень уютно</figcaption>
+      </figure>
+
+      <figure class="g-item will-animate">
+        <img src="https://picsum.photos/seed/quickframe-g2/700/930" alt="Работа из галереи QUICK FRAME" loading="lazy">
+        <figcaption class="g-caption">Милые админы</figcaption>
+      </figure>
+
+      <figure class="g-item will-animate">
+        <img src="https://picsum.photos/seed/quickframe-g3/700/930" alt="Работа из галереи QUICK FRAME" loading="lazy">
+        <figcaption class="g-caption">Тот самый свет</figcaption>
+      </figure>
+
+      <figure class="g-item will-animate">
+        <img src="https://picsum.photos/seed/quickframe-g4/700/930" alt="Работа из галереи QUICK FRAME" loading="lazy">
+        <figcaption class="g-caption">Можно быть собой</figcaption>
+      </figure>
+
+      <figure class="g-item will-animate">
+        <img src="https://picsum.photos/seed/quickframe-g5/700/930" alt="Работа из галереи QUICK FRAME" loading="lazy">
+        <figcaption class="g-caption">Как в журнале</figcaption>
+      </figure>
+
+      <figure class="g-item will-animate">
+        <img src="https://picsum.photos/seed/quickframe-g6/700/930" alt="Работа из галереи QUICK FRAME" loading="lazy">
+        <figcaption class="g-caption">Хочется вернуться</figcaption>
+      </figure>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= КОНТАКТЫ ================= -->
+<section class="section contacts" id="contacts">
+  <div class="container">
+
+    <div class="section-head will-animate">
+      <span class="eyebrow">Контакты и онлайн-запись</span>
+      <h2 class="section-title">Забронируй свой слот</h2>
+      <p class="section-sub">Оставь заявку — мы свяжемся с тобой в течение 15 минут и подтвердим время.</p>
+    </div>
+
+    <div class="contacts-grid">
+
+      <!-- ФОРМА -->
+      <form class="booking-form will-animate" id="bookingForm" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Как тебя зовут</label>
+            <input type="text" id="name" name="name" placeholder="Анна" required>
+          </div>
+          <div class="field">
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="date">Дата</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+          <div class="field">
+            <label for="time">Время</label>
+            <select id="time" name="time">
+              <option>10:00</option>
+              <option>12:00</option>
+              <option>14:00</option>
+              <option>16:00</option>
+              <option>18:00</option>
+              <option>20:00</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="zone">Зал / тариф</label>
+          <select id="zone" name="zone">
+            <option>Знакомство · 45 минут — 2 900 ₽</option>
+            <option>Стандарт · 1 час — 3 900 ₽</option>
+            <option>Для двоих · 1,5 часа — 5 400 ₽</option>
+            <option>Классический чёрный</option>
+            <option>Минималистичный белый</option>
+            <option>Цветной пастельный</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="comment">Комментарий (необязательно)</label>
+          <textarea id="comment" name="comment" placeholder="Расскажи, какое настроение хочется поймать"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-accent btn-block">Забронировать слот</button>
+
+        <p class="form-note">Нажимая кнопку, ты соглашаешься с политикой обработки персональных данных.</p>
+
+        <div class="form-success" id="formSuccess">
+          Спасибо! Заявка отправлена — мы свяжемся с тобой в течение 15 минут 😉
+        </div>
+      </form>
+
+      <!-- ИНФО -->
+      <aside class="info-card will-animate">
+        <ul class="info-list">
+          <li>
+            <span class="label">Адрес</span>
+            <span>г. Екатеринбург, ул. Малышева, 51, студия 7</span>
+          </li>
+          <li>
+            <span class="label">Телефон</span>
+            <a href="tel:+73430000000">+7 (343) 000-00-00</a>
+          </li>
+          <li>
+            <span class="label">Часы работы</span>
+            <span>Ежедневно, 10:00 — 22:00</span>
+          </li>
+          <li>
+            <span class="label">Почта</span>
+            <a href="mailto:hello@quickframe.ru">hello@quickframe.ru</a>
+          </li>
+        </ul>
+
+        <div class="socials">
+          <a class="social-link" href="https://instagram.com" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"></circle>
+            </svg>
+            Instagram
+          </a>
+
+          <a class="social-link" href="https://t.me" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 4L3 11l5 2 2 6 3-4 5 3 3-14z"></path>
+            </svg>
+            Telegram
+          </a>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- КАРТА -->
+    <div class="map-wrap will-animate">
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=60.5750%2C56.8280%2C60.6200%2C56.8500&amp;layer=mapnik&amp;marker=56.8389%2C60.5975"
+        title="Карта проезда до студии QUICK FRAME"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ФУТЕР ================= -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>© <span id="year"></span> QUICK FRAME — фотостудия автопортрета</span>
+    <nav class="footer-links">
+      <a href="#how">Как это работает</a>
+      <a href="#zones">Залы</a>
+      <a href="#prices">Цены</a>
+      <a href="#gallery">Галерея</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   1. Год в футере
+   ============================================================ */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ============================================================
+   2. Тень у хедера при скролле
+   ============================================================ */
+const header = document.getElementById('siteHeader');
+const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 12);
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ============================================================
+   3. Плавное появление блоков при скролле
+   ============================================================ */
+const animated = document.querySelectorAll('.will-animate');
+
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        // лёгкая каскадная задержка для соседей
+        setTimeout(() => entry.target.classList.add('is-in'), i * 90);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  animated.forEach(el => io.observe(el));
+} else {
+  animated.forEach(el => el.classList.add('is-in'));
+}
+
+/* ============================================================
+   4. Кнопки «Выбрать этот зал» → подставляем зал в форму
+   ============================================================ */
+const zoneSelect = document.getElementById('zone');
+const contactsSection = document.getElementById('contacts');
+
+document.querySelectorAll('.zone-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const zone = btn.dataset.zone;
+    if (zoneSelect) {
+      [...zoneSelect.options].forEach(opt => {
+        if (opt.text.trim() === zone) zoneSelect.value = opt.value;
+      });
+    }
+    contactsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => {
+      const nameInput = document.getElementById('name');
+      if (nameInput) nameInput.focus({ preventScroll: true });
+    }, 700);
+  });
+});
+
+/* ============================================================
+   5. Отправка формы (заглушка — подключите свою обработку)
+   ============================================================ */
+const form = document.getElementById('bookingForm');
+const success = document.getElementById('formSuccess');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const name = form.name.value.trim();
+  const phone = form.phone.value.trim();
+
+  if (!name || !phone) {
+    alert('Пожалуйста, заполните имя и телефон.');
+    return;
+  }
+
+  /* --- Здесь можно отправить данные на сервер ---
+     fetch('/api/booking', { method:'POST', body: new FormData(form) })
+     или отправить в Telegram-бот / на почту.
+  ------------------------------------------------ */
+
+  success.classList.add('is-visible');
+  form.reset();
+
+  setTimeout(() => success.classList.remove('is-visible'), 8000);
+});
+
+/* ============================================================
+   6. Минимальная дата — сегодня
+   ============================================================ */
+const dateInput = document.getElementById('date');
+if (dateInput) {
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+  dateInput.value = today;
+}
+</script>
+
+</body>
+</html>
